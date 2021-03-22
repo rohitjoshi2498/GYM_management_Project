@@ -1,3 +1,4 @@
+                                           
 class Gym_Rohit:
     
    
@@ -5,7 +6,7 @@ class Gym_Rohit:
     def __init__(self):
         self.all_member_info={}               #to store the dict_store as member id
         self.mem_id = 100
-        self.dict_store={}                    #to store the name,age and other details
+#         self.dict_store={}                    #to store the name,age and other details
         self.dict_super_mb={}
         self.dict1_18={}                        #to store the bmi<18.5
         self.dict1_25={}                        #to store the bmi<25
@@ -41,7 +42,7 @@ class Gym_Rohit:
         print('7. Delete Regimen')
         print('8. Update Regimen')
         print('0. If you want to exit')
-        option_super = int(input("Enter an option"))
+        option_super = int(input("Enter an option "))
         
         if option_super == 1:
             self.create_mem()    
@@ -70,39 +71,46 @@ class Gym_Rohit:
     def create_mem(self):
         
         print('To create a member, kindly enter your details ')
-        self.name=input('Enter Name ')
-        self.age=int(input('Enter Age '))
-        self.gender=input('Enter your Gender ')
-        self.phone=int(input('Enter your mobile number '))
-        self.email=input('Enter your email ')
-        self.bmi=float(input('Enter your BMI '))
-        self.membership_mnths=int(input('Enter the membership duration 1,3,6 or 12 months '))
-        self.mem_id +=1
-        print('**',self.mem_id,'** this is your member id, kindly enter whenver prompted ')
+        name=input('Enter Name ')
+        age=int(input('Enter Age '))
+        gender=input('Enter your Gender ')
+        phone=int(input('Enter your mobile number '))
+        email=input('Enter your email ')
+        bmi=float(input('Enter your BMI '))
+        membership_mnths=int(input('Enter the membership duration 1,3,6 or 12 months '))
+        self.mem_id =self.mem_id + 1
+        print('**',self.mem_id,'** this is your member id, kindly enter whenever prompted ')
         
         
-                                                            #storing the member details in dict_store
-        self.dict_store["Name"]=self.name
-        self.dict_store["Gender"]=self.gender
-        self.dict_store["Age"]=self.age
-        self.dict_store["BMI"]=self.bmi
-        self.dict_store["Mobile_No"]=self.phone
-        self.dict_store["Email-id"]=self.email
-        self.dict_store["Membership Duration(months)"]=self.membership_mnths
-        self.dict_store["Member_ID"]=self.mem_id
-        self.dict_store["Status"]="Subscription_ON"
+        dict_store={}                                                    #storing the member details in dict_store
+        dict_store["Name"]=name
+        dict_store["Gender"]=gender
+        dict_store["Age"]=age
+        dict_store["BMI"]=bmi
+        dict_store["Mobile_No"]=phone
+        dict_store["Email-id"]=email
+        dict_store["Membership Duration(months)"]=membership_mnths
+        dict_store["Member_ID"]=self.mem_id
+        dict_store["Status"]="Subscription_ON"
+        print('Member id is ',self.mem_id)
         
-        self.all_member_info[self.mem_id] = self.dict_store     #storing the dict_store as a key to all_member_info dict
+        self.all_member_info[self.mem_id] = dict_store 
+                                                      #storing the dict_store as a key to all_member_info dict
         
-        self.dict_super_mb[self.phone] =self.dict_store         #superuser get to know about the user thriugh mobile
+        self.dict_super_mb[phone] = dict_store         #superuser get to know about the user thriugh mobile
         
+        print('All member  ',self.all_member_info)
         
+        print('mobile mein ',self.dict_super_mb)
         self.intro_Superuser()
         
     def view_mem(self):
         self.option3=int(input('Enter the member mobile number to get the details '))
         for k in self.dict_super_mb[self.option3]:
             print(k,self.dict_super_mb[self.option3][k])
+        print('The main thign is working or not ',self.dict_super_mb)
+
+
         cont=input('Do you want to coontinue\nYes or No ')
         if cont =="Yes" or cont=='yes':
             self.intro_Superuser()
@@ -174,7 +182,7 @@ class Gym_Rohit:
                         'Sun': 'Cardio'}
         if self.a <= 18.5:
             self.regimen_store[self.enter_bmi_id]=self.dict1_18
-            print(self.regimen_store[self.enter_bmi_id])
+            
         elif self.a > 18.5  and self.a <= 25:
             self.regimen_store[self.enter_bmi_id]=self.dict1_25
 
@@ -196,11 +204,9 @@ class Gym_Rohit:
         self.ask_mem_id = int(input('To view the regimen please enter the member id '))
         print('Name: ',self.all_member_info[self.ask_mem_id]["Name"])
         print('Age: ',self.all_member_info[self.ask_mem_id]["Age"])
-        if self.all_member_info[self.ask_mem_id] !='Deleted':
-               for l in self.regimen_store[self.ask_mem_id]:
-                    print(l,':',self.regimen_store[self.ask_mem_id][l])
-        else:
-            print('Member Not Found')
+        for l in self.regimen_store[self.ask_mem_id]:
+            print(l,':',self.regimen_store[self.ask_mem_id][l])
+
         self.intro_Superuser()
     
     def delet_regimen(self):
@@ -233,7 +239,7 @@ class Gym_Rohit:
 #         print(self.all_member_info)
         print('Name: ',self.all_member_info[self.ask_mem_id1]["Name"])
         print('Age: ',self.all_member_info[self.ask_mem_id1]["Age"])
-        for j in self.regimen_store.get(self.ask_mem_id1):
+        for j in self.regimen_store[self.ask_mem_id1]:
             print(j,':',self.regimen_store[self.ask_mem_id1][j])
         self.intro_Member()
         
@@ -241,8 +247,8 @@ class Gym_Rohit:
             
     def mem_profile(self):
         self.ask_mem_id2=int(input('To view the Profile please enter your Member id '))
-        print(self.all_member_info)
-        for i in self.all_member_info.get(self.ask_mem_id2):
+#         print(self.all_member_info)
+        for i in self.all_member_info[self.ask_mem_id2]:
             print(i,self.all_member_info[self.ask_mem_id2][i])
         cont=input('Do you want to coontinue\nYes or No')
         if cont =="yes" or cont=='Yes':
@@ -256,17 +262,20 @@ class Gym_Rohit:
         inpu=int(input("********Welcome to RJ_FITNESS********\nPlease enter the following options: \n1. SuperUser\n2. Member\n\n"))
 
         if inpu ==1:
-            password=input('Please enter the password for super ')
+            password=input('Please enter the password for super ')      #super user password authentication
             if password =="super@123":
                 self.intro_Superuser()
         elif inpu==2:
             self.intro_Member() 
         else:
-            self.open_gym()
+            pass
 
 
 if __name__ == "__main__":
-    Rohit = Gym_Rohit()
-    Rohit.open_gym()
+    rohit = Gym_Rohit()
+    rohit.open_gym()
     
         
+    
+        
+   
